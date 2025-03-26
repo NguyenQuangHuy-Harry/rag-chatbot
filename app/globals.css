@@ -3,30 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --text-primary: #FFFFFF;
+  --text-primary: #ffffff;
   --text-primary-inverse: #090909;
-  --text-primary-main: #7724AA;
-  --text-secondary: #A6AAAE;
-  --text-secondary-inverse: #494A4D;
-  --background-bubble-primary: #611C9B;
-  --background-bubble-secondary: #F7F7F7;
-  --border-primary: #CED0D2;
-  --background-soft: #F3E5F5;
+  --text-primary-main: #7724aa;
+  --text-secondary: #a6aaae;
+  --text-secondary-inverse: #494a4d;
+  --background-bubble-primary: #611c9b;
+  --background-bubble-secondary: #f7f7f7;
+  --border-primary: #ced0d2;
+  --background-soft: #f3e5f5;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --text-tertiary: #6B6F73;
-  --shadow-primary: 0px 6px 16px 0px #0A0A0A1F, 0px 4px 14px 0px #0A0A0A14, 0px 8px 10px 0px #0A0A0A14;
+  --text-tertiary: #6b6f73;
+  --shadow-primary: 0px 6px 16px 0px #0a0a0a1f, 0px 4px 14px 0px #0a0a0a14, 0px 8px 10px 0px #0a0a0a14;
   --processing-dot-size: 4px;
 }
 
-
 .dark {
   --text-primary: #090909;
-  --text-primary-inverse: #FFFFFF;
-  --text-primary-main: #9946B9;
-  --text-secondary: #494A4D;
-  --text-secondary-inverse: #A6AAAE;
-  --background-bubble-primary: #BA68C8;
+  --text-primary-inverse: #ffffff;
+  --text-primary-main: #9946b9;
+  --text-secondary: #494a4d;
+  --text-secondary-inverse: #a6aaae;
+  --background-bubble-primary: #ba68c8;
   --background-bubble-secondary: #232324;
   --background-soft: #200033;
   --border-primary: #262626;
@@ -34,11 +33,16 @@
   --background-end-rgb: 28, 28, 28;
 }
 
-
 body {
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.chatbot-section ol,
+.chatbot-section ul,
+.chatbot-section menu {
+  list-style: unset;
+  margin: unset;
+  padding: unset;
 }
 
 .chatbot-section {
@@ -48,7 +52,7 @@ body {
 }
 
 .chatbot-header {
-  border-bottom: 1px solid var(--border-primary);;
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .chatbot-header svg {

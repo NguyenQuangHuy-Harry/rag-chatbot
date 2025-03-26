@@ -1,7 +1,4 @@
-import {
-  PAGEFLY_HELP_CENTER_PAGES_URLS,
-  PAGEFLY_PAGES_URLS,
-} from "@/constants/pagefly-help-center-urls";
+import { PAGEFLY_HELP_CENTER_PAGES_URLS } from "@/constants/pagefly-help-center-urls";
 import { astraDBConfigs } from "@/services/astraDB";
 import { openAIEmbeddings } from "@/services/openAI";
 import { AstraDBVectorStore } from "@langchain/community/vectorstores/astradb";
@@ -28,7 +25,9 @@ async function scrapeSinglePage(
 
     // Target the main content area of the help center page
     const content = await page.evaluate(() => {
-      const article = document.querySelector(".article");
+      const article =
+        document.querySelector(".article") ||
+        document.querySelector("#article__content");
       if (!article) return "";
 
       const unwantedTags = article.querySelectorAll(
@@ -68,16 +67,6 @@ async function processDocumentsInBatches(
   documents: Document[],
   batchSize: number = 10
 ) {
-  const vectorStore = new AstraDBVectorStore(openAIEmbeddings, {
-    ...astraDBConfigs,
-    collectionOptions: {
-      vector: {
-        dimension: 1536,
-        metric: "cosine",
-      },
-    },
-  });
-
   // Process documents in batches
   for (let i = 0; i < documents.length; i += batchSize) {
     const batch = documents.slice(i, i + batchSize);
@@ -85,8 +74,15 @@ async function processDocumentsInBatches(
     // Split the batch into chunks
     const splitBatch = await splitter.splitDocuments(batch);
 
-    // Add the chunks to the vector store
-    await vectorStore.addDocuments(splitBatch);
+    await AstraDBVectorStore.fromDocuments(splitBatch, openAIEmbeddings, {
+      ...astraDBConfigs,
+      collectionOptions: {
+        vector: {
+          dimension: 1536,
+          metric: "cosine",
+        },
+      },
+    });
 
     console.log(
       `Processed batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(
@@ -100,14 +96,16 @@ async function processDocumentsInBatches(
 
 export async function POST(req: Request) {
   try {
-    const { batchSize = 5, maxConcurrent = 3 } = await req.json();
+    const batchSize = 10;
+    const maxConcurrent = 5;
 
     // Launch puppeteer browser
     const browser = await puppeteer.launch({
       headless: true,
+      timeout: 10000,
     });
 
-    const allUrls = [...PAGEFLY_HELP_CENTER_PAGES_URLS, ...PAGEFLY_PAGES_URLS];
+    const allUrls = [...PAGEFLY_HELP_CENTER_PAGES_URLS];
     const documents: Document[] = [];
 
     // Process URLs in batches to limit concurrent scraping
@@ -140,7 +138,7 @@ export async function POST(req: Request) {
 
     // Process the documents in batches
     const result = await processDocumentsInBatches(documents, batchSize);
-
+    console.log("Completed scraping and ingestion process.");
     return new Response(JSON.stringify(result), {
       headers: { "Content-Type": "application/json" },
       status: 200,
