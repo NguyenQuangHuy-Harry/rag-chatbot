@@ -8,5 +8,5 @@ export const astraDBConfigs = {
   token: ASTRA_DB_APPLICATION_TOKEN || "",
   endpoint: ASTRA_DB_API_ENDPOINT || "",
   namespace: ASTRA_DB_NAMESPACE || "",
-  collection: "pagefly-help-center",
+  collection: "PageflyHelpCenter",
 };

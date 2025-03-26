@@ -79,6 +79,10 @@ export async function POST(req: Request) {
         question: (input) => input.question,
       },
       answerPrompt,
+      (input) => {
+        console.log(input);
+        return input;
+      },
       openAIModel,
     ]);
 
