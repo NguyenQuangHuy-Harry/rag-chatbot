@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build && npm run seed",
     "start": "next start",
-    "seed": "ts-node ./scripts/populateDb.ts",
     "lint": "next lint"
   },
   "dependencies": {

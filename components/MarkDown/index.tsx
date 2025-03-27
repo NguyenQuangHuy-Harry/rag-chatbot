@@ -1,9 +1,8 @@
-import React from "react";
+/* eslint-disable @next/next/no-img-element */
 import ReactMarkdown from "react-markdown";
-import { LinkRenderer } from "./LinkRenderer";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Image from "next/image";
+import { LinkRenderer } from "./LinkRenderer";
 
 const CustomMarkdown = ({ markdownContent }: any) => {
   return (
