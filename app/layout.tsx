@@ -1,15 +1,21 @@
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import "./telemetry-init";
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "RAGBot Starter",
-  description: "RAGBot Starter - Powered by DataStax and Vercel",
+  description: "Ask questions about your documents",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={GeistSans.className}>{children}</body>
     </html>
   );
 }
