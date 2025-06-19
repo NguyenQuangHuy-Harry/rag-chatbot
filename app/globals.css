@@ -49,14 +49,22 @@ body {
   background-color: var(--text-primary);
   box-shadow: var(--shadow-primary);
   border: 1px solid var(--border-primary);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .chatbot-header {
+  padding: 1rem;
+  background: linear-gradient(90deg, var(--background-bubble-primary) 0%, var(--text-primary-main) 100%);
   border-bottom: 1px solid var(--border-primary);
 }
 
+.chatbot-header h1 {
+  color: var(--text-primary);
+}
+
 .chatbot-header svg {
-  fill: var(--text-primary-inverse);
+  fill: var(--text-primary);
 }
 
 .chatbot-text-primary {
@@ -87,10 +95,20 @@ body {
 .chatbot-send-button {
   background-color: var(--text-primary-inverse);
   color: var(--text-primary);
+  transition: background-color 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
 .chatbot-send-button svg {
   fill: var(--text-primary);
+}
+
+.chatbot-send-button:hover {
+  background-color: var(--text-primary-main);
+  transform: translateY(-1px);
+}
+
+.chatbot-send-button:active {
+  transform: translateY(0);
 }
 
 .chatbot-button-primary {
@@ -113,7 +131,8 @@ body {
   fill: var(--text-tertiary);
 }
 
-.talk-bubble {
+.talk-bubble,
+.talk-bubble.user {
   text-align: left;
   display: inline-block;
   position: relative;
@@ -121,6 +140,8 @@ body {
   background-color: var(--background-bubble-secondary);
   border-radius: 10px;
   border-bottom-left-radius: 0px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease-in-out;
 }
 
 .talk-bubble.user {
@@ -131,7 +152,8 @@ body {
   border-bottom-right-radius: 0px;
 }
 
-.talk-bubble svg {
+.talk-bubble svg,
+.talk-bubble.user svg {
   position: absolute;
   left: -1px;
   bottom: 2px;
@@ -145,6 +167,11 @@ body {
   bottom: 2px;
   transform: translateY(100%);
   fill: var(--background-bubble-primary);
+}
+
+.talk-bubble:hover,
+.talk-bubble.user:hover {
+  transform: translateY(-2px);
 }
 
 .dot-flashing {
@@ -223,4 +250,24 @@ body {
 
 .vercel-link hr {
   border-color: var(--border-primary);
+}
+
+/* Input focus ring */
+.chatbot-input:focus {
+  border-color: var(--background-bubble-primary);
+  box-shadow: 0 0 0 2px rgba(158, 69, 255, 0.2);
+}
+
+/* Custom scrollbar (WebKit) */
+.chatbot-section .overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatbot-section .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatbot-section .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: var(--background-bubble-primary);
+  border-radius: 10px;
 }
